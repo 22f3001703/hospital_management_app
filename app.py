@@ -1,5 +1,7 @@
 from flask import Flask 
 from database import db 
+from controllers.register import registerthePatient
+from controllers.login import thelogin
 
 
 def start_the_app():
@@ -9,6 +11,8 @@ def start_the_app():
     db.init_app(app)
     app.app_context().push()
     app.secret_key = "123456"
+    app.register_blueprint(registerthePatient)
+    app.register_blueprint(thelogin)
     return app
 
 app = start_the_app()
