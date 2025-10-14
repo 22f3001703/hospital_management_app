@@ -2,6 +2,9 @@ from flask import Flask
 from database import db 
 from controllers.register import registerthePatient
 from controllers.login import thelogin
+from controllers.patientDashboard import thepatientDashboard
+from controllers.adminDashboard import theadminDashboard
+from controllers.doctorDashboard import thedoctorDashboard
 
 
 def start_the_app():
@@ -13,6 +16,10 @@ def start_the_app():
     app.secret_key = "123456"
     app.register_blueprint(registerthePatient)
     app.register_blueprint(thelogin)
+    app.register_blueprint(thepatientDashboard)
+    app.register_blueprint(theadminDashboard)
+    app.register_blueprint(thedoctorDashboard)
+    
     return app
 
 app = start_the_app()
