@@ -10,7 +10,7 @@ provideTheAvailibility = Blueprint('provideTheAvailibility', __name__)
 def provideAvailibility():
     print(session["user"])
     username= session['user']
-    availibiltiy={}
+    availibility={}
     currentdate = datetime.date.today()
     j=0
     print(currentdate)
@@ -36,8 +36,8 @@ def provideAvailibility():
         DoctorAvailibility.date <= enddate).order_by(DoctorAvailibility.date).all()
     
     for entry in endresultfordict:
-        availibiltiy[entry.date] = [entry.time1, entry.time2]
+        availibility[entry.date] = [entry.time1, entry.time2]
 
-    print("Availability Dict:", availibiltiy)    
+    print("Availability Dict:", availibility)    
                                                          
-    return render_template("provideAvailibility.html",availibiltiy=availibiltiy)
+    return render_template("provideAvailibility.html",availibility=availibility)
