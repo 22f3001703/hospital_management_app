@@ -7,6 +7,7 @@ theadminDashboard = Blueprint('theadminDashboard', __name__)
 def adminDashboard():
     if('user' in session and session['role']=="admin"):
         user=session['user']
+        print(user)
         return render_template("adminDashboard.html",user=user)
     else:
         return redirect("/login")
