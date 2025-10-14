@@ -12,8 +12,13 @@ def login():
 
         user=User.query.filter_by(username=username,password=password).first()
         if(user):
+            user.status=1
+            db.session.commit()
+            session['id']=user.id
             session['user']=user.username
             session['role']=user.role
+            session['status']=user.status
+            print(session)
             if(user.role=="admin"):
                 return redirect("/dashboard/admin")
             elif(user.role=="patient"):
