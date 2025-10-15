@@ -19,7 +19,7 @@
 </head>
 <body>
 
-    <h1>Hey doctor, please provide your Availability</h1>
+    <h1>Hey Doctor, please provide your Availability</h1>
 
     <div class="table-container">
         <table class="table table-bordered text-center align-middle">
@@ -30,46 +30,80 @@
                     <th>4pm - 8pm</th>
                 </tr>
             </thead>
-            <tbody>
-                {% for date, times in availibility.items() %}
-                <tr>
-                    <td>{{ date.strftime('%A, %d %B %Y') }}</td>
-                    <td>
-                        <button class="btn {% if times[0] %}btn-outline-success active{% else %}btn-outline-danger{% endif %}" 
-                                onclick="toggleAvailability(this)">
-                            {% if times[0] %}Available{% else %}Unavailable{% endif %}
-                        </button>
-                    </td>
-                    <td>
-                        <button class="btn {% if times[1] %}btn-outline-success active{% else %}btn-outline-danger{% endif %}" 
-                                onclick="toggleAvailability(this)">
-                            {% if times[1] %}Available{% else %}Unavailable{% endif %}
-                        </button>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+           <tbody>
+    {% for date, times in availibility.items() %}
+    <tr>
+        <td>{{ date }}</td>
+        <td>
+            {% if times[0] == 0 %}
+            <button class="btn btn-outline-danger" onclick="toggleAvailability(this, '{{ date }}', 0)">Unavailable</button>
+            {% else %}
+            <button class="btn btn-outline-success active" onclick="toggleAvailability(this, '{{ date }}', 0)">Available</button>
+            {% endif %}
+        </td>
+        <td>
+            {% if times[1] == 0 %}
+            <button class="btn btn-outline-danger" onclick="toggleAvailability(this, '{{ date }}', 1)">Unavailable</button>
+            {% else %}
+            <button class="btn btn-outline-success active" onclick="toggleAvailability(this, '{{ date }}', 1)">Available</button>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
 
-    <!-- Toggle Script -->
+        </table>
+        <button class="btn btn-outline-success" onclick="updateAvailability()">Update Availability</button>
+
+    </div>
+    
     <script>
-        function toggleAvailability(button) {
+        let availability  = {{ availibility | tojson }};
+        function toggleAvailability(button,date,timeslot) {
             if (button.classList.contains('btn-outline-success')) {
-                // Switch to unavailable
                 button.classList.remove('btn-outline-success', 'active');
                 button.classList.add('btn-outline-danger');
                 button.textContent = 'Unavailable';
+                availability                
             } else {
-                // Switch to available
                 button.classList.remove('btn-outline-danger');
                 button.classList.add('btn-outline-success', 'active');
                 button.textContent = 'Available';
+
             }
+            if (availability[date]) {
+            availability[date][timeslot] = availability[date][timeslot] === 1 ? 0 : 1;
+    }
+            console.log(availability);
+
+
         }
+
+
+        function updateAvailability(){
+            fetch('/doctor/slots/update', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(availability),
+        })    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Availability updated successfully!');
+        } else {
+            alert('Failed to update availability.');
+        }
+        })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while updating.');
+    });
+}
+
     </script>
 
-    <!-- Bootstrap JS (optional, for better support) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
 </body>
 </html>

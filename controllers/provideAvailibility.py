@@ -38,6 +38,6 @@ def provideAvailibility():
     for entry in endresultfordict:
         availibility[entry.date] = [entry.time1, entry.time2]
 
-    print("Availability Dict:", availibility)    
+    availibility = {date.isoformat(): slots for date, slots in availibility.items()}
                                                          
     return render_template("provideAvailibility.html",availibility=availibility)
