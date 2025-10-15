@@ -30,3 +30,8 @@ class DoctorAvailibility(db.Model):
     date=db.Column(db.Date(),nullable=False)
     time1=db.Column(db.Integer(),default=0)
     time2=db.Column(db.Integer(),default=0)
+
+class Department(db.Model):
+    id=db.Column(db.Integer(),primary_key=True)
+    name=db.Column(db.String(50),nullable = False)
+    descreption=db.Column(db.String(200),nullable=True)
