@@ -35,3 +35,12 @@ class Department(db.Model):
     id=db.Column(db.Integer(),primary_key=True)
     name=db.Column(db.String(50),nullable = False)
     descreption=db.Column(db.String(200),nullable=True)
+
+class Appointments(db.Model):
+    id=id=db.Column(db.Integer(),primary_key=True)
+    patient=db.Column(db.String(50),nullable = False)
+    doctor=db.Column(db.String(50),nullable = False)
+    datetime=db.Column(db.DateTime(),nullable=False)
+    status=db.Column(db.String(15),nullable = False)
+    
+    
