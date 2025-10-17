@@ -10,6 +10,7 @@ from controllers.provideAvailibility import provideTheAvailibility
 from controllers.updateAvailibility import updateTheAvailibility
 from controllers.showDepartmentPage import showthedepartment
 from controllers.provideAvailibilityToPatient import provideAvailibilityToPatient
+from controllers.doctorDetails import thedoctorDetails
 
 
 def start_the_app():
@@ -29,6 +30,7 @@ def start_the_app():
     app.register_blueprint(updateTheAvailibility)
     app.register_blueprint(showthedepartment)
     app.register_blueprint(provideAvailibilityToPatient)
+    app.register_blueprint(thedoctorDetails)
     return app
 
 app = start_the_app()
