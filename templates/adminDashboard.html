@@ -74,6 +74,38 @@
       </table>
 </div>
 <h2 class="text-center my-4">Registered Patients</h2>
+      <table class="table">
+      <thead>
+        <tr>
+          <th>Full name</th>
+          <th>username</th>
+          <th>phone</th>
+          <th>email</th>
+          <th>address</th>
+          <th>Actions</th>
+        </tr>
+      </thead>  
+      <tbody>
+        {% for pat in allpatients %}
+        {% for y in patientdetails %}
+        {% if pat.id == y.userid %}
+        <tr>
+          <td>{{pat.fullname}}</td>
+          <td>{{pat.username}}</td>
+          <td>{{y.phone}}</td>
+          <td> {{y.email}}</td>
+          <td style="word-break: break-word; max-width: 200px;">{{y.address}}</td>
+          <td>
+          <a href="/editpatient/{{ pat.id }}" class="btn btn-primary btn-sm me-1">Edit</a>
+          <a href="/deletepatient/{{ pat.id }}" class="btn btn-danger btn-sm me-1">Delete</a>
+          <a href="/blacklistpatient/{{ pat.id }}" class="btn btn-warning btn-sm">Blacklist</a>
+        </td>
+        </tr>
+          {% endif %}
+        {% endfor %}
+        {% endfor %}
+        </tbody>
+      </table>
 <h2 class="text-center my-4">Appointments</h2>
 
 </body>

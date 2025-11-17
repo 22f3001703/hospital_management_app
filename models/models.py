@@ -49,5 +49,18 @@ class Treatment(db.Model):
     prescreption= db.Column(db.String(1000),nullable=False)
     notes=db.Column(db.String(50),nullable = False)
 
+
+class Patient(db.Model):
+    id=db.Column(db.Integer(),primary_key=True)   
+    userid = db.Column(db.Integer(),nullable=False)
+    name=db.Column(db.String(50),nullable = False)
+    dob = db.Column(db.String(20),nullable = False)
+    phone= db.Column(db.Integer(),nullable = False)
+    email=db.Column(db.String(50),nullable = False)
+    address=db.Column(db.String(200),nullable = False)
+    emergencycontact=db.Column(db.String(50),nullable = False)
+
+
+
     
     

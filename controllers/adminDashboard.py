@@ -1,6 +1,6 @@
 from flask import Flask,render_template,redirect,request,Response,Blueprint,session
 from database import db
-from models.models import User
+from models.models import User, Patient
 from models.models import Doctor
 
 theadminDashboard = Blueprint('theadminDashboard', __name__)
@@ -13,6 +13,13 @@ def adminDashboard():
         print(alldoctors)
         doctdetails= Doctor.query.all()
         print(doctdetails)
-        return render_template("adminDashboard.html",user=user , alldoctors=alldoctors, doctdetails=doctdetails)
+        allpatients=User.query.filter_by(role="patient").all()
+        print(allpatients)
+        patientdetails= Patient.query.all()
+        print(patientdetails)
+        for x in patientdetails:
+            print(x.email)
+        
+        return render_template("adminDashboard.html",user=user , alldoctors=alldoctors, doctdetails=doctdetails, allpatients=allpatients, patientdetails=patientdetails)
     else:
         return redirect("/login")

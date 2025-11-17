@@ -2,3 +2,4 @@
 
 one thing we have to do if there is no current department it will create the departemnts..(final touch times)
 showdoctoravailibiilty to patient dikhana hae line no 34 pe commnet ko dkeho will forllow it end during beautification .
+Doctor ki photo add krne ka mechanism banana hae bilkul last mae ,laadle 
