@@ -40,16 +40,16 @@
                     <td>{{date}}</td>
                     <td>
                     {%if times[0] == 0%}
-                    <button class="btn btn-outline-danger">Unavailable</button>
+                    <button class="btn btn-outline-danger" onclick=errorOnUnavailable()>Unavailable</button>
                     {%else%}
-                    <button class="btn btn-outline-success">Available</button>
+                    <button class="btn btn-outline-success" onclick="setDateAndTimeSlotOnSelect('{{ date }}','8am - 12pm',this)">Available</button>
                     {%endif%}
                     </td>
                     <td>
                     {%if times[1] == 0%}
-                    <button class="btn btn-outline-danger">Unavailable</button>
+                    <button class="btn btn-outline-danger" onclick=errorOnUnavailable()>Unavailable</button>
                     {%else%}
-                    <button class="btn btn-outline-success">Available</button>
+                    <button class="btn btn-outline-success" onclick="setDateAndTimeSlotOnSelect('{{ date }}','4pm - 8pm',this)">Available</button>
                     {%endif%}
                     </td>
                     {%endfor%}
@@ -57,7 +57,53 @@
             </tbody>
             {%endif%}
             </table>
+            <button class="btn btn-primary" onclick=bookSlot(date,timeslot)>Book</button>
     </div>
+    <script>
+        let date= "";
+        let timeslot= "";
+        let selectedButton = null;
+
+        function bookSlot(date, timeSlot) {
+            alert(`Booking slot on ${date} during ${timeSlot}`);
+        }
+
+        function setDateAndTimeSlotOnSelect(selectedDate, selectedTimeSlot,button) {
+
+            date = selectedDate;
+            timeslot = selectedTimeSlot;
+            console.log(button);
+            if (selectedButton && selectedButton !== button) {
+                selectedButton.classList.remove('btn-primary');
+                selectedButton.classList.add('btn-outline-success');
+            }
+
+           if (button.classList.contains('btn-success')) {
+            button.classList.remove('btn-success');
+            button.classList.add('btn-outline-success');
+            date = "";
+            timeslot = "";
+            selectedButton = null;
+        } else {
+            button.classList.remove('btn-outline-success');
+            button.classList.add('btn-success');
+            selectedButton = button;
+        }
+
+
+            console.log(`Selected Date: ${date}, Time Slot: ${timeslot}`);
+            alert(`Selected Date: ${date}, Time Slot: ${timeslot}`);
+            alert("Proceeding to book the slot...");
+        }
+
+        function errorOnUnavailable() {
+            if (!date || !timeslot) {
+            alert("Please select a slot first!");
+            return;
+        }
+            alert("Sorry, this slot is unavailable. Please choose available slot.");
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
 </body>
