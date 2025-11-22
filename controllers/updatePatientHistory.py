@@ -7,22 +7,11 @@ theUpdatePatientHistory = Blueprint('theupdatepatienthistory', __name__)
 def UpdatePatientHistory(patient_username, appointment_id):
     if('user' in session and session['role']=="doctor"):
         user=session['user']
-        print("Update Patient History Page")
-        print("Doctor:", user)
-        print("Patient Username:", patient_username)
-        print("Appointment ID:", appointment_id)
-
         if request.method == 'POST':
             diagnosis = request.form.get("diagnosis")
             prescription = request.form.get("prescription")
             medicines = request.form.get("medicines")
             notes = request.form.get("notes")
-
-            print("Diagnosis:", diagnosis)
-            print("Prescreption:", prescription)
-            print("Medicines:", medicines)
-            print("Notes:", notes)
-
             new_treatment = Treatment(appointmentid=appointment_id, diagnosis=diagnosis, prescreption=prescription, medicines=medicines, notes=notes)
             db.session.add(new_treatment)
             db.session.commit()
@@ -30,6 +19,6 @@ def UpdatePatientHistory(patient_username, appointment_id):
             print("Patient history updated successfully")
             return redirect("/dashboard/doctor")
 
-        return render_template("patientHistory.html", user=user, patient_username=patient_username, appointment_id=appointment_id)
+        return render_template("updatePatientHistory.html", user=user, patient_username=patient_username, appointment_id=appointment_id)
     else:
         return redirect("/login")
