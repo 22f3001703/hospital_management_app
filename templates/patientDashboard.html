@@ -51,9 +51,55 @@
     </tbody>
 </table>
 <h2 class="text-center my-4">Upcoming Appointments</h2>
+<div style="max-width: 900px; margin: auto;">
+  <table class="table table-bordered table-hover text-center align-middle">
+    <thead>
+      <tr >
+        <th>Sr.No</th>
+        <th>Doctor Name</th>
+        <th>Department</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for z in sendabledata %}
+      <tr>
+        <td>{{z.id}}</td>
+        <td>{{z.fullname}}</td>
+        <td>{{z.specialization}}</td>
+        <td>{{z.date}}</td>
+        <td>{{z.timeslot}}</td>
+        <td>{{z.status}}</td>
+        {% if z.status == "booked" %}
+        <td><button class="btn btn-outline-danger" onclick="cancelAppointment(`{{z.id}}`)">Cancel</button></td>
+        {%else%}
+        <td> <button class="btn-close-white">Canceled</button></td>
+        {%endif%}
+        </tr>
 
-
+        {%endfor%}
+    </tbody>
+  </table>
+</div>
 
 </body>
+<script>
+  async function cancelAppointment(id){
+    console.log("canceling appointment for ",id)
+    let response = await fetch(`/dashboard/patient/cancel-appointment/${id}`,{
+      method:'POST',
+      headers:{
+              'Content-Type':'application/json'
+                }
+              }
+    )
+    if(response.redirected){
+      window.location.href=response.url
+    }
+  }
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </html>
