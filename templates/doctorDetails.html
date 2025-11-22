@@ -52,8 +52,8 @@
             <h3><strong>Address:</strong> {{getDoctorDetails.address}}</h3>
             <h4><strong>Experience:</strong> {{getDoctorDetails.experience}}</h4>
            <div class="d-flex justify-content-between mt-4">
-                <button class="btn btn-outline-info">See Availability</button>
-                <button class="btn btn-outline-secondary">Back</button>
+                <a class="btn btn-outline-info" href="/dashboard/patient/{{getDoctorDetails.specialization}}/{{getDoctorDetails.fullname}}/{{getDoctorDetails.username}}/availibility">See Availability</a>
+                <a class="btn btn-outline-secondary" href="/dashboard/patient/dep-details/{{getDoctorDetails.specialization}}">Back</a>
             </div>
         </div>
     </div>
