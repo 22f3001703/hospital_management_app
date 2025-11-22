@@ -75,8 +75,8 @@
         <td>{{z.status}}</td>
         {% if z.status == "booked" %}
         <td><button class="btn btn-outline-danger" onclick="cancelAppointment(`{{z.id}}`)">Cancel</button></td>
-        {%elseif z.staus == "completed" %}
-        <td><button class="btn-check">Completed</button></td>
+        {%elif z.status == "completed" %}
+        <td><button class="btn-close-white">Completed</button></td>
         {%else%}
         <td> <button class="btn-close-white">Canceled</button></td>
         {%endif%}
@@ -91,7 +91,7 @@
 <script>
   async function cancelAppointment(id){
     console.log("canceling appointment for ",id)
-    let response = await fetch(`/dashboard/patient/cancel-appointment/${id}`,{
+    let response = await fetch(`/dashboard/patient/action-on-appointment/${id}/cancelled`,{
       method:'POST',
       headers:{
               'Content-Type':'application/json'

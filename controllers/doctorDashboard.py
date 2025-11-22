@@ -23,6 +23,8 @@ def doctorDashboard():
                     "username": getpatientdetails.username
 
                 }
+            if not innerdetails:
+                continue
             appointment.append(innerdetails)
         print(appointment)    
         return render_template("doctorDashboard.html",user=user, appointment=appointment)

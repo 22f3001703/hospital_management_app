@@ -55,7 +55,8 @@
     <td>{{ap.date}}</td>
     <td>{{ap.timeslot}}</td>
     <td><a class="btn btn-primary" href="/dashboard/doctor/patient-history/{{ap.username}}/{{ap.id}}">Update</a></td>
-    <td><div><button class="btn btn-success">Mark as Completed</button><Button class="btn btn-dark" style="margin-left: 15px;">Cancel</Button></div></td>
+      <td><div><a class="btn btn-success" href="/dashboard/patient/action-on-appointment/{{ap.id}}/completed" >Mark as Completed</a>
+    <a class="btn btn-dark" style="margin-left: 15px;" href="/dashboard/patient/action-on-appointment/{{ap.id}}/cancelled">Cancel</a></div></td>
     </tr>
     {%endfor%}
     </tbody>
