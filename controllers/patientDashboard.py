@@ -26,6 +26,7 @@ def patientDashboard():
             }
             sendabledata.append(details)
         print("Sendable Data:", sendabledata)
+        sendabledata.reverse()
 
         return render_template("patientDashboard.html",user=user, departments=departments, sendabledata=sendabledata)
     
