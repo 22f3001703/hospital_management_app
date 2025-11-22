@@ -14,6 +14,7 @@ from controllers.doctorDetails import thedoctorDetails
 from controllers.bookAppointment import theAppointmentBooking
 from controllers.actionToAppointment import theActionWithAppointment
 from controllers.updatePatientHistory import theUpdatePatientHistory
+from controllers.patientHistory import thePatientHistory
 
 
 def start_the_app():
@@ -37,6 +38,7 @@ def start_the_app():
     app.register_blueprint(theAppointmentBooking)
     app.register_blueprint(theActionWithAppointment)
     app.register_blueprint(theUpdatePatientHistory)
+    app.register_blueprint(thePatientHistory)
     return app
 
 app = start_the_app()
