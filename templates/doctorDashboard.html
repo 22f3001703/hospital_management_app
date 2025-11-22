@@ -36,6 +36,31 @@
   </div>
 </nav>
 <h2 class="text-center my-4">Upcoming Appointments</h2>
+<table class="table  table-bordered text-center align-middle table-hover ">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">S.R</th>
+      <th scope="col">Patient Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">time</th>
+      <th scope="col">Patient History</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for ap in appointment %}
+    <tr>
+    <td>{{ap.id}}</td>
+    <td>{{ap.fullname}}</td>
+    <td>{{ap.date}}</td>
+    <td>{{ap.timeslot}}</td>
+    <td><button class="btn btn-primary">Update</button></td>
+    <td><div><button class="btn btn-success">Mark as Completed</button><Button class="btn btn-dark" style="margin-left: 15px;">Cancel</Button></div></td>
+    </tr>
+    {%endfor%}
+
+    </tbody>
+</table>
 <h2 class="text-center my-4">Assigned Patients</h2>
 
 </body>

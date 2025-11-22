@@ -1,12 +1,28 @@
 from flask import Flask,render_template,redirect,request,Response,Blueprint,session
 from database import db
-from models.models import User
+from models.models import User,Appointments
 
 thedoctorDashboard = Blueprint('thedoctorDashboard', __name__)
 @thedoctorDashboard.route("/dashboard/doctor", methods=['GET','POST'])
 def doctorDashboard():
     if('user' in session and session['role']=="doctor"):
         user=session['user']
-        return render_template("doctorDashboard.html",user=user)
+        allapointments= Appointments.query.filter_by(doctor=user).all()
+        print("All Appointments for Doctor:", allapointments)
+        appointment=[]
+        innerdetails={}
+        for x in allapointments:
+            getpatientdetails=User.query.filter_by(username=x.patient).first()
+            if(x.status=="booked"):
+                innerdetails={
+                    "id": x.id,
+                    "fullname": getpatientdetails.fullname,
+                    "date": x.date,
+                    "timeslot": x.timeslot,
+                    "status": x.status
+                }
+            appointment.append(innerdetails)
+        print(appointment)    
+        return render_template("doctorDashboard.html",user=user, appointment=appointment)
     else:
         return redirect("/login")
