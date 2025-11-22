@@ -47,8 +47,10 @@ class Appointments(db.Model):
 
 class Treatment(db.Model):
     id =  db.Column(db.Integer(),primary_key=True)
+    appointmentid = db.Column(db.Integer(),nullable=False)
     diagnosis=db.Column(db.String(500),nullable = False) 
     prescreption= db.Column(db.String(1000),nullable=False)
+    medicines=db.Column(db.String(1000),nullable = False)
     notes=db.Column(db.String(50),nullable = False)
 
 

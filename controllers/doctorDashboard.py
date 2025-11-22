@@ -19,7 +19,9 @@ def doctorDashboard():
                     "fullname": getpatientdetails.fullname,
                     "date": x.date,
                     "timeslot": x.timeslot,
-                    "status": x.status
+                    "status": x.status,
+                    "username": getpatientdetails.username
+
                 }
             appointment.append(innerdetails)
         print(appointment)    

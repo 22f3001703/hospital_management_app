@@ -13,6 +13,7 @@ from controllers.provideAvailibilityToPatient import provideAvailibilityToPatien
 from controllers.doctorDetails import thedoctorDetails
 from controllers.bookAppointment import theAppointmentBooking
 from controllers.cancelAppointment import theCancelAppointment
+from controllers.updatePatientHistory import theUpdatePatientHistory
 
 
 def start_the_app():
@@ -35,6 +36,7 @@ def start_the_app():
     app.register_blueprint(thedoctorDetails)
     app.register_blueprint(theAppointmentBooking)
     app.register_blueprint(theCancelAppointment)
+    app.register_blueprint(theUpdatePatientHistory)
     return app
 
 app = start_the_app()
