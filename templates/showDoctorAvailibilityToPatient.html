@@ -66,6 +66,7 @@
 
         function bookSlot(date, timeSlot) {
             alert(`Booking slot on ${date} during ${timeSlot}`);
+            bookAvailableSlot(date,timeslot);
         }
 
         function setDateAndTimeSlotOnSelect(selectedDate, selectedTimeSlot,button) {
@@ -94,7 +95,7 @@
             console.log(`Selected Date: ${date}, Time Slot: ${timeslot}`);
             alert(`Selected Date: ${date}, Time Slot: ${timeslot}`);
             alert("Proceeding to book the slot...");
-            bookAvailableSlot(date,timeslot);
+            
 
         }
 
@@ -105,12 +106,21 @@
         }
             
             alert("Sorry, this slot is unavailable. Please choose available slot.");
-            //sending an ajax request to server to inform user that slot is unavailable
         }
 
         async function bookAvailableSlot(date,timeslot){
             try{
-                let response= await fetch('/dashboard/patient/{{specialization}}/{{fullname}}/{{username}}/availibility/book',{
+                const pathname=window.location.pathname;
+                const urlsegments = pathname.split('/');
+                const specialization = urlsegments[3];
+                const fullname = decodeURIComponent(urlsegments[4]);
+                 const username = urlsegments[5];
+                
+
+                console.log(specialization,fullname,username);
+
+            
+                let response= await fetch(`/dashboard/patient/${specialization}/${fullname}/${username}/availibility/book`,{
                     method:'POST',
                     headers:{
                         'Content-Type':'application/json'
@@ -119,15 +129,10 @@
                         'date':date,
                         'timeslot':timeslot
                     })
-                }).then(response=>response.json())
-                    .then(data=>{
-                        if(data.success){
-                            alert("Appointment booked successfully!");
-                            window.location.href="/dashboard/patient";
-                        }else{
-                            alert("Failed to book appointment. Please try again.");
-                        }
-                    });
+                })
+                if(response.redirected){
+                    window.location.href=response.url
+                }
             }catch(error){
                 console.error("Error booking appointment:",error);
                 alert("An error occurred while booking the appointment. Please try again.");

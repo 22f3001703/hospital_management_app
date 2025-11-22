@@ -37,11 +37,13 @@ class Department(db.Model):
     descreption=db.Column(db.String(200),nullable=True)
 
 class Appointments(db.Model):
-    id=db.Column(db.Integer(),primary_key=True)
-    patient=db.Column(db.String(50),nullable = False)
-    doctor=db.Column(db.String(50),nullable = False)
-    datetime=db.Column(db.DateTime(),nullable=False)
-    status=db.Column(db.String(15),nullable = False)
+    id = db.Column(db.Integer, primary_key=True)
+    patient = db.Column(db.String(50), nullable=False)
+    doctor = db.Column(db.String(50), nullable=False)
+    date = db.Column(db.String(10), nullable=False)   
+    timeslot = db.Column(db.String(20), nullable=False)   
+    status = db.Column(db.String(15), nullable=False)
+
 
 class Treatment(db.Model):
     id =  db.Column(db.Integer(),primary_key=True)
