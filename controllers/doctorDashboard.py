@@ -35,7 +35,8 @@ def doctorDashboard():
             getassignedpatientdetails=User.query.filter_by(username=y.patient).first()
             innerpatientdetails={
                 "id": y.id,
-                "fullname": getassignedpatientdetails.fullname,         
+                "fullname": getassignedpatientdetails.fullname,
+                "username": getassignedpatientdetails.username,        
             }
             finalassignedpatients.append(innerpatientdetails)
             print(y.patient)

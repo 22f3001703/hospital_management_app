@@ -8,6 +8,7 @@ def patientHistory(pt_username):
         user=session['user']
         role=session['role']
         print(user)
+        pt_name= User.query.filter_by(username=pt_username).first().fullname
         if role=="doctor":
             getdoctor= Doctor.query.filter_by(username=user).first()
             department=getdoctor.specialization
@@ -44,6 +45,6 @@ def patientHistory(pt_username):
                 sendabletreatmentrecords.append(innerrecorddetails)
             print("All Treatment Records:", sendabletreatmentrecords)
 
-            return render_template("patientHistory.html",user=user , appointments=appointments, patient_username=pt_username,department=department, allrelevantrecordsid=allrelevantrecordsid)
+            return render_template("patientHistory.html",user=user ,sendabletreatmentrecords=sendabletreatmentrecords,pt_name=pt_name,appointments=appointments, patient_username=pt_username,department=department, allrelevantrecordsid=allrelevantrecordsid)
     else:
         return redirect("/login")
