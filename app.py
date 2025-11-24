@@ -14,7 +14,7 @@ from controllers.doctorDetails import thedoctorDetails
 from controllers.bookAppointment import theAppointmentBooking
 from controllers.actionToAppointment import theActionWithAppointment
 from controllers.updatePatientHistory import theUpdatePatientHistory
-from controllers.patientHistory import thePatientHistory
+from controllers.patientHistoryForDoctor import thePatientHistory
 
 
 def start_the_app():

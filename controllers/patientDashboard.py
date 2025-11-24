@@ -8,6 +8,7 @@ thepatientDashboard = Blueprint('thepatientDashboard', __name__)
 def patientDashboard():
     if('user' in session and session['role']=="patient"):
         user=session['user']
+        theUser= User.query.filter_by(username=user).first()
         departments= Department.query.all()
 
         myappointmnets= Appointments.query.filter_by(patient=user).all()
@@ -28,7 +29,7 @@ def patientDashboard():
         print("Sendable Data:", sendabledata)
         sendabledata.reverse()
 
-        return render_template("patientDashboard.html",user=user, departments=departments, sendabledata=sendabledata)
+        return render_template("patientDashboard.html",theUser=theUser,user=user, departments=departments, sendabledata=sendabledata)
     
     
     else:
