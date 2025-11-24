@@ -15,6 +15,23 @@
     <h5 class="card-title text-center mb-3">Patient: John Doe</h5>
     <h6 class="card-subtitle mb-2 text-muted text-center">Department: Cardiology</h6>
 
+<div class="mb-3">
+  <label for="visittype" class="form-label">Visit Type</label>
+  <select class="form-select" id="visittype">
+      <option value="" disabled selected>Select visit type</option>
+      <option value="Follow Up">Follow Up</option>
+      <option value="New Visit">New Visit</option>
+      <option value="Referred">Referred</option>
+  </select>
+</div>
+
+
+<div class="mb-3">
+  <label for="test" class="form-label">Other Test</label>
+  <textarea class="form-control" id="test" rows="2" placeholder="Enter tests if any... otherwise keep none"></textarea>
+</div>
+
+
     <div class="mb-3">
       <label for="diagnosis" class="form-label">Diagnosis</label>
       <textarea class="form-control" id="diagnosis" rows="2" placeholder="Enter diagnosis..."></textarea>
@@ -51,12 +68,16 @@
         const prescreption = document.getElementById("prescription").value;
         const medicines = document.getElementById("medicines").value;
         const notes = document.getElementById("notes").value;
+        const visittype = document.getElementById("visittype").value;
+    const test = document.getElementById("test").value;
         console.log(diagnosis ,prescreption , medicines , notes)
         let formData = new FormData();
         formData.append("diagnosis",diagnosis);
         formData.append("prescription",prescreption)
         formData.append("medicines",medicines)
         formData.append("notes",notes)
+        formData.append("visittype", visittype);
+        formData.append("test", test);
         for (let [key, value] of formData.entries()) {
         console.log(key, value);
         }

@@ -52,6 +52,8 @@ class Treatment(db.Model):
     prescreption= db.Column(db.String(1000),nullable=False)
     medicines=db.Column(db.String(1000),nullable = False)
     notes=db.Column(db.String(50),nullable = False)
+    test = db.Column(db.String(500),nullable=True)
+    visittype=db.Column(db.String(50),nullable=False)
 
 
 class Patient(db.Model):

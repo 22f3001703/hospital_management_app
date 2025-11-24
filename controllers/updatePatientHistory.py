@@ -12,7 +12,9 @@ def UpdatePatientHistory(patient_username, appointment_id):
             prescription = request.form.get("prescription")
             medicines = request.form.get("medicines")
             notes = request.form.get("notes")
-            new_treatment = Treatment(appointmentid=appointment_id, diagnosis=diagnosis, prescreption=prescription, medicines=medicines, notes=notes)
+            test = request.form.get("test")
+            visittype = request.form.get("visittype")
+            new_treatment = Treatment(appointmentid=appointment_id, diagnosis=diagnosis, prescreption=prescription, medicines=medicines, notes=notes, test=test, visittype=visittype)
             db.session.add(new_treatment)
             db.session.commit()
 
