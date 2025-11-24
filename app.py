@@ -15,6 +15,7 @@ from controllers.bookAppointment import theAppointmentBooking
 from controllers.actionToAppointment import theActionWithAppointment
 from controllers.updatePatientHistory import theUpdatePatientHistory
 from controllers.patientHistoryForDoctor import thePatientHistory
+from controllers.logout import log_out
 
 
 def start_the_app():
@@ -39,6 +40,7 @@ def start_the_app():
     app.register_blueprint(theActionWithAppointment)
     app.register_blueprint(theUpdatePatientHistory)
     app.register_blueprint(thePatientHistory)
+    app.register_blueprint(log_out)
     return app
 
 app = start_the_app()
