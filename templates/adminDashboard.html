@@ -97,7 +97,7 @@
           <td> {{y.email}}</td>
           <td style="word-break: break-word; max-width: 200px;">{{y.address}}</td>
           <td>
-          <a href="/editpatient/{{ pat.id }}" class="btn btn-primary btn-sm me-1">Edit</a>
+          <a href="/admin/edit-patient/{{pat.username}}" class="btn btn-primary btn-sm me-1">Edit</a>
           <a href="/deletepatient/{{ pat.id }}" class="btn btn-danger btn-sm me-1">Delete</a>
           <a href="/blacklistpatient/{{ pat.id }}" class="btn btn-warning btn-sm">Blacklist</a>
         </td>
