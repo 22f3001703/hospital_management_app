@@ -62,7 +62,7 @@
           <td>{{x.specialization}}</td>
           <td>{{x.phone}}</td>
           <td>
-          <a href="/editdoctor/{{ doc.id }}" class="btn btn-primary btn-sm me-1">Edit</a>
+          <a href="/edit-doctor/{{ doc.id }}" class="btn btn-primary btn-sm me-1">Edit</a>
           <a class="btn btn-success" href="/availibility/edit">Update Availability</a>
           <a href="/deletedoctor/{{ doc.id }}" class="btn btn-danger btn-sm me-1">Delete</a>
           <a href="/blacklistdoctor/{{ doc.id }}" class="btn btn-warning btn-sm">Blacklist</a>
@@ -131,7 +131,6 @@
         {%endfor%}
         </tbody>
       </table>
-
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

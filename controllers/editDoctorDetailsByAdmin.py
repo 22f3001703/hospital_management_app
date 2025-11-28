@@ -5,8 +5,12 @@ from models.models import User,Doctor
 theeditdoctordetailsbyadmin = Blueprint('theeditdoctordetailsbyadmin', __name__)
 @theeditdoctordetailsbyadmin.route("/edit-doctor/<int:id>", methods=['GET','POST'])
 def EditDoctorDetailsByAdmin(id):
+    print("i am being called ", id )
     if('user' in session):
-        doctor = Doctor.query.filter_by(id=id).first_or_404()
+        docusername= User.query.filter_by(id=id, role="doctor").first().username
+        print("Doctor username to edit:", docusername)
+        
+        doctor = Doctor.query.filter_by(username=docusername).first_or_404()
     if request.method == "POST":
         doctor.fullname = request.form['fullname']
         doctor.specialization = request.form['specialization']
