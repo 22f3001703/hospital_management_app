@@ -8,10 +8,19 @@
 
 ## Done (Doctor dashboard )
 -- Update availabilty
+-- Upcoming appointemnet --done
+--update patient history  --done
+-- patient history showing done
+-- Assigned patients done
+-- Profile  logout done
 
 ## DOne (Patient Dashboard)
 -- chek availibility is done 
 --the departments list done
+--booking appointment done
+--upcoming appintments and cancelling is done 
+-- all movements between app is kept intact
+-- patient history --done
 
 
 
@@ -19,18 +28,15 @@
 -- Action button of anyone is not working 
 -- Appointment relation needed to handled 
 -- Profile edit logout
+-- register details of pateint/ edit is done
 
 ## Remainiang (Doctor dashboard )
--- Upcoming appointemnet 
--- Assigned patients
--- Profile edit logout
---update patient history 
--- patient history 
+
+
+
+ 
 
 ## Remainiang (Patient Dashboard)
--- register details of pateint/ edit is left 
--- upcoming appintments  is left 
--- patient history 
--- on availablity doman book is left 
--- go back button is left 
+
+-- multimple booking handle at lastest 
 
