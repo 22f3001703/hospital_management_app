@@ -11,7 +11,9 @@ def login():
         password=request.form.get("password")
 
         user=User.query.filter_by(username=username,password=password).first()
-        if(user):
+        print(user.status)
+        print("afrer this")
+        if(user and user.status==1):
             user.status=1
             db.session.commit()
             session['id']=user.id
@@ -20,11 +22,12 @@ def login():
             session['status']=user.status
             print(session)
             if(user.role=="admin"):
-                return redirect("/dashboard/admin")
+                return redirect("/dashboard/admin")     
             elif(user.role=="patient"):
                 return redirect("/dashboard/patient")
             elif(user.role=="doctor"):
                 return redirect("/dashboard/doctor")
         else:
-            return render_template("invalid.html")
+            message="Sorry , You have been removed from the system or invalid credentials, please contact admin."
+            return render_template("invalid.html", message=message)
     return render_template("login.html")

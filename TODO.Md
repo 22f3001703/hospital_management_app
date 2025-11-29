@@ -30,8 +30,13 @@
 
 ## Remainiang (Admin dashboard )
 -- Action button of anyone is not working  priority 4
+--search
 
 ## Remainiang (Patient Dashboard)
 
 -- multimple booking handle at lastest (update availibility at admin) priprity 5
+--search
 
+
+## global 
+consequences of deletion to be adopted carefully prohibiting all writing permission and reading for only patient to the doctor .

@@ -16,7 +16,7 @@ def registerPatient():
         if(IsUsernameExsist):
             return render_template("duplicate.html")
         else:
-            new_patient = User(fullname=fullname,username=username,password=password,role=role,status=0)
+            new_patient = User(fullname=fullname,username=username,password=password,role=role,status=1)
             db.session.add(new_patient)
             db.session.commit()
             new_patient_id = new_patient.id
