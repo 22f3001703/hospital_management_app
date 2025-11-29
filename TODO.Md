@@ -5,6 +5,9 @@
 -- Registered patient being shown to admin dashboard
 -- Doctor dashboard being shown 
 -- Doctor getting registerd 
+ logout done 
+ -- Appointment relation needed to handled done
+ -- Profile edit priprity done
 
 ## Done (Doctor dashboard )
 -- Update availabilty
@@ -25,18 +28,13 @@
 
 
 ## Remainiang (Admin dashboard )
--- Action button of anyone is not working 
--- Appointment relation needed to handled 
--- Profile edit logout
--- register details of pateint/ edit is done
-
-## Remainiang (Doctor dashboard )
+-- Action button of anyone is not working  priority 4
 
 
+-- register details of pateint/ edit has to be  done priotity 3
 
- 
 
 ## Remainiang (Patient Dashboard)
 
--- multimple booking handle at lastest 
+-- multimple booking handle at lastest (update availibility at admin) priprity 5
 
