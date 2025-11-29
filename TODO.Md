@@ -24,15 +24,12 @@
 --upcoming appintments and cancelling is done 
 -- all movements between app is kept intact
 -- patient history --done
+-- register details of pateint/ edit -- done
 
 
 
 ## Remainiang (Admin dashboard )
 -- Action button of anyone is not working  priority 4
-
-
--- register details of pateint/ edit has to be  done priotity 3
-
 
 ## Remainiang (Patient Dashboard)
 

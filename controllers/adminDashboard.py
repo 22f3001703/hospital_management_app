@@ -9,11 +9,11 @@ def adminDashboard():
     if('user' in session and session['role']=="admin"):
         user=session['user']
         print(user)
-        alldoctors=User.query.filter_by(role="doctor").all()
+        alldoctors=User.query.filter_by(role="doctor",status=1).all()
         print(alldoctors)
         doctdetails= Doctor.query.all()
         print(doctdetails)
-        allpatients=User.query.filter_by(role="patient").all()
+        allpatients=User.query.filter_by(role="patient",status=1).all()
         print(allpatients)
         patientdetails= Patient.query.all()
         print(patientdetails)
