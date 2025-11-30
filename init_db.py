@@ -1,6 +1,6 @@
 from app import start_the_app
 from database import db
-from models.models import User
+from models.models import User, BlackListUser, Doctor, Patient, Department, Appointments, Treatment, DoctorAvailibility
 
 app = start_the_app()
 

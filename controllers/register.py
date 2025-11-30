@@ -1,6 +1,6 @@
 from flask import Flask,render_template,redirect,request,Response,Blueprint,session
 from database import db
-from models.models import User , Patient
+from models.models import User , Patient, BlackListUser
 
 registerthePatient = Blueprint('registerthePatient', __name__)
 @registerthePatient.route("/register", methods=['GET','POST'])
@@ -15,6 +15,12 @@ def registerPatient():
         IsUsernameExsist=User.query.filter_by(username=username).first()
         if(IsUsernameExsist):
             return render_template("duplicate.html")
+        
+        # Check if username is blacklisted
+        isBlacklisted = BlackListUser.query.filter_by(username=username).first()
+        if(isBlacklisted):
+            message=f"This username has been blacklisted and cannot be used. Reason: {isBlacklisted.reason}. Please choose a different username."
+            return render_template("invalid.html", message=message)
         else:
             new_patient = User(fullname=fullname,username=username,password=password,role=role,status=1)
             db.session.add(new_patient)

@@ -67,6 +67,8 @@ class Patient(db.Model):
     emergencycontact=db.Column(db.String(50),nullable = False)
 
 class BlackListUser(db.Model):
+    __tablename__ = 'BlackListUser'
+    
     id=db.Column(db.Integer(),primary_key=True)   
     userid = db.Column(db.Integer(),nullable=False)
     username=db.Column(db.String(50),nullable = False)

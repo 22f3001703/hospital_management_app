@@ -20,6 +20,7 @@ from controllers.editPatientDetails import theeditpatientdetails
 from controllers.editDoctorDetailsByAdmin import theeditdoctordetailsbyadmin
 from controllers.editPateintDetailsByAdmin import theeditpatientdetailsByAdmin
 from controllers.deleteDoctor import thedeleteDoctor
+from controllers.blackListUser import theBlackListingUser
 
 
 def start_the_app():
@@ -49,6 +50,7 @@ def start_the_app():
     app.register_blueprint(theeditdoctordetailsbyadmin)
     app.register_blueprint(theeditpatientdetailsByAdmin)
     app.register_blueprint(thedeleteDoctor)
+    app.register_blueprint(theBlackListingUser)
     return app
 
 app = start_the_app()
