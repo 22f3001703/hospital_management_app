@@ -11,17 +11,16 @@ def registerPatient():
         username=request.form.get("username")
         password=request.form.get("password")
         role="patient"
-
-        IsUsernameExsist=User.query.filter_by(username=username).first()
-        if(IsUsernameExsist):
-            return render_template("duplicate.html")
-        
-
         isBlacklisted = BlackListUser.query.filter_by(username=username).first()
+        IsUsernameExsist=User.query.filter_by(username=username).first()    
+
+        
         if(isBlacklisted):
             message=f"This username has been blacklisted and cannot be used. Reason: {isBlacklisted.reason}. Please choose a different username."
             return render_template("invalid.html", message=message)
         else:
+            if(IsUsernameExsist):
+                return render_template("duplicate.html")
             new_patient = User(fullname=fullname,username=username,password=password,role=role,status=1)
             db.session.add(new_patient)
             db.session.commit()

@@ -37,12 +37,3 @@
 
 ## Remainiang (Patient Dashboard)
 
-
-
-//while no doctor or patient it shouldn't show table structure .
-doctor not being shown in admin dashboard 
-
-
-//department wise search
-//phone , id search
-blank pg not
