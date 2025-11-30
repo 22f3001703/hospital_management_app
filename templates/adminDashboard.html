@@ -21,8 +21,12 @@
         </ul>
 
 
-         <form class="d-flex me-3" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+         <form class="d-flex me-3" method="POST" action="/dashboard/admin/search">
+          <select class="form-select me-2" name="search_type" style="width: auto;">
+            <option value="doctor">Doctor</option>
+            <option value="patient">Patient</option>
+          </select>
+          <input class="form-control me-2" type="search" name="search_query" placeholder="Search by name or username" aria-label="Search" required>
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
         
@@ -39,6 +43,102 @@
     </div>
   </div>
 </nav>
+
+<!-- Search Results Section -->
+{% if search_results is defined %}
+<div class="container mt-4">
+  <div class="alert alert-info">
+    <strong>Search Results for "{{ search_query }}" in {{ search_type.title() }}s:</strong>
+    {% if search_results|length == 0 %}
+      <p class="mb-0 mt-2">No results found.</p>
+    {% else %}
+      <p class="mb-0 mt-2">Found {{ search_results|length }} result(s).</p>
+    {% endif %}
+  </div>
+  
+  {% if search_results|length > 0 %}
+    {% if search_type == 'doctor' %}
+    <!-- Doctor Search Results -->
+    <div class="card">
+      <div class="card-header">
+        <h5 class="mb-0">Doctor Search Results</h5>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Full Name</th>
+              <th>Username</th>
+              <th>Department</th>
+              <th>Phone</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for result in search_results %}
+            <tr>
+              <td>{{ result.user.fullname }}</td>
+              <td>{{ result.user.username }}</td>
+              <td>{{ result.doctor_details.specialization }}</td>
+              <td>{{ result.doctor_details.phone }}</td>
+              <td>
+                <a href="/edit-doctor/{{ result.user.id }}" class="btn btn-primary btn-sm me-1">Edit</a>
+                <a class="btn btn-success btn-sm me-1" href="/availibility/edit/{{ result.user.username }}">Update Availability</a>
+                <a href="/delete/{{ result.user.id }}" class="btn btn-danger btn-sm me-1">Delete</a>
+                <a href="/blacklist-doctor/{{ result.user.id }}" class="btn btn-warning btn-sm">Blacklist</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% else %}
+    <!-- Patient Search Results -->
+    <div class="card">
+      <div class="card-header">
+        <h5 class="mb-0">Patient Search Results</h5>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Full Name</th>
+              <th>Username</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Address</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for result in search_results %}
+            <tr>
+              <td>{{ result.user.fullname }}</td>
+              <td>{{ result.user.username }}</td>
+              <td>{{ result.patient_details.phone }}</td>
+              <td>{{ result.patient_details.email }}</td>
+              <td style="word-break: break-word; max-width: 200px;">{{ result.patient_details.address }}</td>
+              <td>
+                <a href="/admin/edit-patient/{{ result.user.username }}" class="btn btn-primary btn-sm me-1">Edit</a>
+                <a href="/delete/{{ result.user.id }}" class="btn btn-danger btn-sm me-1">Delete</a>
+                <a href="/blacklistpatient/{{ result.user.id }}" class="btn btn-warning btn-sm">Blacklist</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endif %}
+  {% endif %}
+  
+  <div class="mt-3">
+    <a href="/dashboard/admin" class="btn btn-secondary">Clear Search</a>
+  </div>
+</div>
+<hr>
+{% endif %}
 
 <div>
   <h2 class="text-center my-4">Registered Doctors</h2>
