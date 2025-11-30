@@ -13,7 +13,7 @@ with app.app_context():
         username="jhaempire",
         password="error",
         role="admin",
-        status=0
+        status=1
     )
     db.session.add(admin)
     db.session.commit()

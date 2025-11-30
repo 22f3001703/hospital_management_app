@@ -16,8 +16,31 @@ def BookAppointment(specialization, fullname, username):
     print("Selected Date:", date)
     print("Selected Time Slot:", timeslot)
 
+
+    existing_appointment = Appointments.query.filter_by(
+        doctor=username, 
+        date=date, 
+        timeslot=timeslot, 
+        status="booked"
+    ).first()
+
+    if existing_appointment:
+        print("Slot already booked!")
+        return {"error": "Sorry! This slot is already booked by another patient. Please choose a different time slot."}, 400
+
+    patient_existing = Appointments.query.filter_by(
+        patient=session['user'],
+        doctor=username,
+        date=date,
+        status="booked"
+    ).first()
+
+    if patient_existing:
+        print("Patient already has appointment on this date!")
+        return {"error": "You already have an appointment with this doctor on this date. Please choose a different date."}, 400
+
     new_appointment = Appointments(patient=session['user'], doctor=username, date=date, timeslot=timeslot, status="booked")
     db.session.add(new_appointment)
     db.session.commit()
 
-    return redirect("/dashboard/patient")
+    return {"success": True, "message": "Appointment booked successfully!", "redirect": "/dashboard/patient"}

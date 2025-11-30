@@ -63,7 +63,7 @@
           <td>{{x.phone}}</td>
           <td>
           <a href="/edit-doctor/{{ doc.id }}" class="btn btn-primary btn-sm me-1">Edit</a>
-          <a class="btn btn-success" href="/availibility/edit">Update Availability</a>
+          <a class="btn btn-success" href="/availibility/edit/{{doc.username}}">Update Availability</a>
           <a href="/delete/{{ doc.id }}" class="btn btn-danger btn-sm me-1">Delete</a>
           <a href="/blacklist-doctor/{{ doc.id }}" class="btn btn-warning btn-sm">Blacklist</a>
         </td>

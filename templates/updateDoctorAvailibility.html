@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Doctor Availability</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .table-container {
+            margin: 30px auto;
+            max-width: 900px;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    {% if session['role'] == 'admin' %}
+    <a class="navbar-brand" href="/dashboard/admin">Admin Panel</a>
+    {% else %}
+    <a class="navbar-brand" href="/dashboard/doctor">Welcome Dr. {{ session['user'] }}</a>
+    {% endif %}
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          {% if session['role'] == 'admin' %}
+          <a class="btn btn-secondary" href="/dashboard/admin">Back to Dashboard</a>
+          {% else %}
+          <a class="btn btn-secondary" href="/dashboard/doctor">Back to Dashboard</a>
+          {% endif %}
+        </li>
+        </ul>
+
+         <ul class="navbar-nav">
+           <li class="nav-item dropdown">
+             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+               {% if session['role'] == 'admin' %}Admin Profile{% else %}Doctor Profile{% endif %}
+             </a>
+             <ul class="dropdown-menu dropdown-menu-end p-2">
+               <li><a class="dropdown-item btn btn-danger" href="/logout">Log Out</a></li>
+             </ul>
+           </li>
+         </ul>
+    </div>
+  </div>
+</nav>
+
+    {% if session['role'] == 'admin' %}
+    <h1>Update Availability for Dr. {{ doctor_user.fullname }}</h1>
+    {% else %}
+    <h1>Hey Dr. {{ doctor_user.fullname }}, Update Your Availability</h1>
+    {% endif %}
+    <p class="text-center"><strong>Department:</strong> {{ doctor_details.specialization }}</p>
+
+    <div class="table-container">
+        <table class="table table-bordered text-center align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Date</th>
+                    <th>8am - 12pm</th>
+                    <th>4pm - 8pm</th>
+                </tr>
+            </thead>
+           <tbody>
+    {% for date, times in availibility.items() %}
+    <tr>
+        <td>{{ date }}</td>
+        <td>
+            {% if times[0] == 0 %}
+            <button class="btn btn-outline-danger" onclick="toggleAvailability(this, '{{ date }}', 0)">Unavailable</button>
+            {% else %}
+            <button class="btn btn-outline-success active" onclick="toggleAvailability(this, '{{ date }}', 0)">Available</button>
+            {% endif %}
+        </td>
+        <td>
+            {% if times[1] == 0 %}
+            <button class="btn btn-outline-danger" onclick="toggleAvailability(this, '{{ date }}', 1)">Unavailable</button>
+            {% else %}
+            <button class="btn btn-outline-success active" onclick="toggleAvailability(this, '{{ date }}', 1)">Available</button>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+
+        </table>
+        <button class="btn btn-outline-success" onclick="updateAvailability()">Update Availability</button>
+
+    </div>
+    
+    <script>
+        let availability  = {{ availibility | tojson }};
+        let doctorUsername = "{{ doctor_user.username }}";
+        
+        function toggleAvailability(button,date,timeslot) {
+            if (button.classList.contains('btn-outline-success')) {
+                button.classList.remove('btn-outline-success', 'active');
+                button.classList.add('btn-outline-danger');
+                button.textContent = 'Unavailable';
+            } else {
+                button.classList.remove('btn-outline-danger');
+                button.classList.add('btn-outline-success', 'active');
+                button.textContent = 'Available';
+            }
+            if (availability[date]) {
+            availability[date][timeslot] = availability[date][timeslot] === 1 ? 0 : 1;
+    }
+            console.log(availability);
+        }
+
+        function updateAvailability(){
+            fetch(`/admin/doctor/slots/update/${doctorUsername}`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(availability),
+        })    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            {% if session['role'] == 'admin' %}
+            alert('Doctor availability updated successfully!');
+            window.location.href = '/dashboard/admin';
+            {% else %}
+            alert('Your availability updated successfully!');
+            window.location.href = '/dashboard/doctor';
+            {% endif %}
+        } else {
+            alert('Failed to update availability.');
+        }
+        })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while updating.');
+    });
+}
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+</body>
+</html>

@@ -39,15 +39,21 @@
                 <tr>
                     <td>{{date}}</td>
                     <td>
+                    {% set slot_key = date + "_8am - 12pm" %}
                     {%if times[0] == 0%}
-                    <button class="btn btn-outline-danger" onclick=errorOnUnavailable()>Unavailable</button>
+                    <button class="btn btn-outline-danger" onclick="errorOnUnavailable()">Unavailable</button>
+                    {% elif slot_key in booked_slots %}
+                    <button class="btn btn-warning" onclick="errorOnBooked()">Already Booked</button>
                     {%else%}
                     <button class="btn btn-outline-success" onclick="setDateAndTimeSlotOnSelect('{{ date }}','8am - 12pm',this)">Available</button>
                     {%endif%}
                     </td>
                     <td>
+                    {% set slot_key2 = date + "_4pm - 8pm" %}
                     {%if times[1] == 0%}
-                    <button class="btn btn-outline-danger" onclick=errorOnUnavailable()>Unavailable</button>
+                    <button class="btn btn-outline-danger" onclick="errorOnUnavailable()">Unavailable</button>
+                    {% elif slot_key2 in booked_slots %}
+                    <button class="btn btn-warning" onclick="errorOnBooked()">Already Booked</button>
                     {%else%}
                     <button class="btn btn-outline-success" onclick="setDateAndTimeSlotOnSelect('{{ date }}','4pm - 8pm',this)">Available</button>
                     {%endif%}
@@ -100,12 +106,11 @@
         }
 
         function errorOnUnavailable() {
-            if (!date || !timeslot) {
-            alert("Please select a slot first!");
-            return;
+            alert("Sorry, this slot is unavailable. Please choose an available slot.");
         }
-            
-            alert("Sorry, this slot is unavailable. Please choose available slot.");
+
+        function errorOnBooked() {
+            alert("Sorry, this slot is already booked by another patient. Please choose a different time slot.");
         }
 
         async function bookAvailableSlot(date,timeslot){
@@ -130,8 +135,21 @@
                         'timeslot':timeslot
                     })
                 })
-                if(response.redirected){
-                    window.location.href=response.url
+                
+                if(response.ok) {
+                    const data = await response.json();
+                    if(data.success) {
+                        alert(data.message || "Appointment booked successfully!");
+                        window.location.href = data.redirect || "/dashboard/patient";
+                    } else {
+                        alert(data.error || "Failed to book appointment. Please try again.");
+                        window.location.reload();
+                    }
+                } else {
+                    const errorData = await response.json();
+                    alert(errorData.error || "Failed to book appointment. Please try again.");
+                    // Refresh the page to show updated availability
+                    window.location.reload();
                 }
             }catch(error){
                 console.error("Error booking appointment:",error);
