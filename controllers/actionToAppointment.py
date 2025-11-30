@@ -6,8 +6,9 @@ theActionWithAppointment = Blueprint('theactionwithappointment', __name__)
 @theActionWithAppointment.route("/dashboard/patient/action-on-appointment/<int:appointment_id>/<string:action>", methods=['GET','POST'])
 def actionToAppointment(appointment_id, action):
 
-    print("Canceling of Appointment Started")
-    print(action)
+    print("Action on Appointment Started")
+    print("Action:", action)
+    print("User role:", session.get('role'))
     appointment = Appointments.query.filter_by(id=appointment_id).first()
     print("Fetched Appointment:", appointment)
     if appointment:
@@ -15,4 +16,10 @@ def actionToAppointment(appointment_id, action):
         appointment.status = action
         db.session.commit()
         print("Appointment status updated successfully")
-    return redirect("/dashboard/doctor")
+    
+    if session.get('role') == 'doctor':
+        return redirect("/dashboard/doctor")
+    elif session.get('role') == 'patient':
+        return redirect("/dashboard/patient")
+    else:
+        return redirect("/login")

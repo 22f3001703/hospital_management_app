@@ -78,9 +78,11 @@
         {% if z.status == "booked" %}
         <td><button class="btn btn-outline-danger" onclick="cancelAppointment(`{{z.id}}`)">Cancel</button></td>
         {%elif z.status == "completed" %}
-        <td><button class="btn-close-white">Completed</button></td>
+        <td><span class="badge bg-success">Completed</span></td>
+        {%elif z.status == "cancelled" %}
+        <td><span class="badge bg-secondary">Cancelled</span></td>
         {%else%}
-        <td> <button class="btn-close-white">Canceled</button></td>
+        <td><span class="badge bg-warning">{{z.status}}</span></td>
         {%endif%}
         </tr>
 

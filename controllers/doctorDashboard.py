@@ -10,10 +10,9 @@ def doctorDashboard():
         allapointments= Appointments.query.filter_by(doctor=user).all()
         print("All Appointments for Doctor:", allapointments)
         appointment=[]
-        innerdetails={}
         for x in allapointments:
-            getpatientdetails=User.query.filter_by(username=x.patient).first()
-            if(x.status=="booked"):
+            if(x.status=="booked"):  # Only show booked appointments in doctor dashboard
+                getpatientdetails=User.query.filter_by(username=x.patient).first()
                 innerdetails={
                     "id": x.id,
                     "fullname": getpatientdetails.fullname,
@@ -21,11 +20,8 @@ def doctorDashboard():
                     "timeslot": x.timeslot,
                     "status": x.status,
                     "username": getpatientdetails.username
-
                 }
-            if not innerdetails:
-                continue
-            appointment.append(innerdetails)
+                appointment.append(innerdetails)
         print(appointment)    
         assignedpatients=Appointments.query.filter_by(doctor=user, status="booked").all()
         finalassignedpatients=[]
