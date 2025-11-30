@@ -12,6 +12,7 @@ def patientHistory(pt_username):
 
             
         appointments=Appointments.query.filter_by(patient=pt_username).all()
+        print("Appointments for Patient History:", appointments)
         allrelevantrecordsid=[]
         for x in appointments:
             if(x.status=="completed"):
@@ -21,6 +22,8 @@ def patientHistory(pt_username):
         for i in range(len(allrelevantrecordsid)):
             print("Appointment IDs:", allrelevantrecordsid[i])
             Treatmentrecord=Treatment.query.filter_by(appointmentid=allrelevantrecordsid[i]).first()
+            if not Treatmentrecord:
+                continue
             print("Treatment Record Fetched:", Treatmentrecord)
             appointfordoctor = Appointments.query.filter_by(id=allrelevantrecordsid[i]).first()
             doctorusername=appointfordoctor.doctor

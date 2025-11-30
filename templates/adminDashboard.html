@@ -44,7 +44,7 @@
   </div>
 </nav>
 
-<!-- Search Results Section -->
+
 {% if search_results is defined %}
 <div class="container mt-4">
   <div class="alert alert-info">
@@ -58,7 +58,7 @@
   
   {% if search_results|length > 0 %}
     {% if search_type == 'doctor' %}
-    <!-- Doctor Search Results -->
+
     <div class="card">
       <div class="card-header">
         <h5 class="mb-0">Doctor Search Results</h5>
@@ -94,7 +94,7 @@
       </div>
     </div>
     {% else %}
-    <!-- Patient Search Results -->
+
     <div class="card">
       <div class="card-header">
         <h5 class="mb-0">Patient Search Results</h5>

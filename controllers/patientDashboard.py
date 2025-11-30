@@ -46,11 +46,11 @@ def patientSearch():
         search_results = []
         
         if search_type == 'department':
-            # Search doctors by department
+
             doctors = Doctor.query.all()
             for doctor in doctors:
                 if search_query in doctor.specialization.lower():
-                    # Check if doctor user is active
+
                     doctor_user = User.query.filter_by(username=doctor.username, role="doctor", status=1).first()
                     if doctor_user:
                         search_results.append({
@@ -61,11 +61,11 @@ def patientSearch():
                         })
         
         elif search_type == 'doctor':
-            # Search doctors by name
+
             doctors = Doctor.query.all()
             for doctor in doctors:
                 if search_query in doctor.fullname.lower():
-                    # Check if doctor user is active
+
                     doctor_user = User.query.filter_by(username=doctor.username, role="doctor", status=1).first()
                     if doctor_user:
                         search_results.append({
@@ -75,7 +75,7 @@ def patientSearch():
                             'phone': doctor.phone
                         })
         
-        # Get regular dashboard data
+
         user = session['user']
         theUser = User.query.filter_by(username=user).first()
         departments = Department.query.all()

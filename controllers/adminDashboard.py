@@ -22,12 +22,13 @@ def adminDashboard():
         allappointment= Appointments.query.all()
         print(allappointment)
         allappointments=[]
+        added_usernames = set()
         innerdetails={}
         for appointment in allappointment:
             patient=User.query.filter_by(username=appointment.patient).first()
             doctor=User.query.filter_by(username=appointment.doctor).first()
             department = Doctor.query.filter_by(username=appointment.doctor).first().specialization
-            if(appointment.status=="booked"):
+            if(appointment.patient not in added_usernames):
                 innerdetails={
                     'id':appointment.id,      
                     'patient_fullname':patient.fullname,
@@ -38,6 +39,7 @@ def adminDashboard():
                     'status':appointment.status,
                     'pt_username':appointment.patient,
                 }
+                added_usernames.add(appointment.patient)
                 allappointments.append(innerdetails)
 
         

@@ -23,19 +23,24 @@ def doctorDashboard():
                 }
                 appointment.append(innerdetails)
         print(appointment)    
-        assignedpatients=Appointments.query.filter_by(doctor=user, status="booked").all()
+        assignedpatients=Appointments.query.filter_by(doctor=user).all()
         finalassignedpatients=[]
         innerpatientdetails={}
+        added_usernames = set()
         print("Assigned Patients:", assignedpatients)
         for y in assignedpatients:
-            getassignedpatientdetails=User.query.filter_by(username=y.patient).first()
-            innerpatientdetails={
-                "id": y.id,
-                "fullname": getassignedpatientdetails.fullname,
-                "username": getassignedpatientdetails.username,        
-            }
-            finalassignedpatients.append(innerpatientdetails)
-            print(y.patient)
+             if y.patient not in added_usernames:
+                getassignedpatientdetails=User.query.filter_by(username=y.patient).first()
+                
+                innerpatientdetails={
+                    "id": y.id,
+                    "fullname": getassignedpatientdetails.fullname,
+                    "username": getassignedpatientdetails.username,        
+                }
+                added_usernames.add(y.patient)
+                finalassignedpatients.append(innerpatientdetails)
+                
+                print(y.patient)
         return render_template("doctorDashboard.html",user=user, appointment=appointment,finalassignedpatients=finalassignedpatients)
     else:
         return redirect("/login")
