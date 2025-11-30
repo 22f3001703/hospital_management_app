@@ -22,13 +22,24 @@
 
 
          <form class="d-flex me-3" method="POST" action="/dashboard/admin/search">
-          <select class="form-select me-2" name="search_type" style="width: auto;">
+          <select class="form-select me-2" name="search_type" style="width: auto;" onchange="updatePlaceholder(this)">
             <option value="doctor">Doctor</option>
             <option value="patient">Patient</option>
           </select>
-          <input class="form-control me-2" type="search" name="search_query" placeholder="Search by name or username" aria-label="Search" required>
+          <input class="form-control me-2" type="search" name="search_query" id="searchInput" placeholder="Search by name, phone, department, or ID" aria-label="Search" required>
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
+        
+        <script>
+        function updatePlaceholder(selectElement) {
+          const searchInput = document.getElementById('searchInput');
+          if (selectElement.value === 'doctor') {
+            searchInput.placeholder = 'Search by name, username, department, or phone';
+          } else {
+            searchInput.placeholder = 'Search by name, username, phone, or patient ID';
+          }
+        }
+        </script>
         
         <ul class="navbar-nav">
           <li class="nav-item dropdown">
@@ -207,7 +218,7 @@
         {% endfor %}
         </tbody>
       </table>
-<h2 class="text-center my-4"> Upcoming Appointments</h2>
+<h2 class="text-center my-4"> All Appointments</h2>
       <table class="table">
       <thead>
         <tr>

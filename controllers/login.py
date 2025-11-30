@@ -11,19 +11,17 @@ def login():
         password=request.form.get("password")
 
         user=User.query.filter_by(username=username,password=password).first()
-        
-        # Check if user exists and credentials are correct
+
         if not user:
             message="Invalid username or password. Please try again."
             return render_template("invalid.html", message=message)
         
-        # Check if user is blacklisted
+
         blacklisted = BlackListUser.query.filter_by(username=username).first()
         if blacklisted:
             message=f"Your account has been blacklisted. Reason: {blacklisted.reason}. Please contact admin for more information."
             return render_template("invalid.html", message=message)
-        
-        # Check if user status is blocked (status = -1)
+
         if user.status == -1:
             message="Your account has been suspended. Please contact admin for assistance."
             return render_template("invalid.html", message=message)

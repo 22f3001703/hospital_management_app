@@ -19,7 +19,7 @@ def addDepartment():
             name = request.form.get("name").strip()
             description = request.form.get("description").strip()
             
-            # Check if department already exists
+
             existing_dept = Department.query.filter_by(name=name).first()
             if existing_dept:
                 message = f"Department '{name}' already exists!"

@@ -9,7 +9,7 @@ def blackListUser(id):
     if('user' in session and session['role']=="admin"):
         user = User.query.filter_by(id=id).first_or_404()
         
-        # Check if already blacklisted
+
         existing_blacklist = BlackListUser.query.filter_by(username=user.username).first()
         if existing_blacklist:
             print(f"User {user.username} is already blacklisted.")
@@ -29,7 +29,7 @@ def blackListDoctor(id):
     if('user' in session and session['role']=="admin"):
         user = User.query.filter_by(id=id).first_or_404()
         
-        # Check if already blacklisted
+
         existing_blacklist = BlackListUser.query.filter_by(username=user.username).first()
         if existing_blacklist:
             print(f"Doctor {user.username} is already blacklisted.")
@@ -49,7 +49,7 @@ def blackListPatient(id):
     if('user' in session and session['role']=="admin"):
         user = User.query.filter_by(id=id).first_or_404()
         
-        # Check if already blacklisted
+
         existing_blacklist = BlackListUser.query.filter_by(username=user.username).first()
         if existing_blacklist:
             print(f"Patient {user.username} is already blacklisted.")

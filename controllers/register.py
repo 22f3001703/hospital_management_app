@@ -16,7 +16,7 @@ def registerPatient():
         if(IsUsernameExsist):
             return render_template("duplicate.html")
         
-        # Check if username is blacklisted
+
         isBlacklisted = BlackListUser.query.filter_by(username=username).first()
         if(isBlacklisted):
             message=f"This username has been blacklisted and cannot be used. Reason: {isBlacklisted.reason}. Please choose a different username."

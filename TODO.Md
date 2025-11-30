@@ -8,6 +8,7 @@
  logout done 
  -- Appointment relation needed to handled done
  -- Profile edit priprity done
+ -- Action button of anyone is not working  priority 4
 
 ## Done (Doctor dashboard )
 -- Update availabilty
@@ -16,6 +17,7 @@
 -- patient history showing done
 -- Assigned patients done
 -- Profile  logout done
+--search
 
 ## DOne (Patient Dashboard)
 -- chek availibility is done 
@@ -25,18 +27,22 @@
 -- all movements between app is kept intact
 -- patient history --done
 -- register details of pateint/ edit -- done
-
-
-
-## Remainiang (Admin dashboard )
--- Action button of anyone is not working  priority 4
---search
-
-## Remainiang (Patient Dashboard)
-
 -- multimple booking handle at lastest (update availibility at admin) priprity 5
 --search
 
 
-## global 
-consequences of deletion to be adopted carefully prohibiting all writing permission and reading for only patient to the doctor .
+
+## Remainiang (Admin dashboard )
+
+
+## Remainiang (Patient Dashboard)
+
+
+
+//while no doctor or patient it shouldn't show table structure .
+doctor not being shown in admin dashboard 
+
+
+//department wise search
+//phone , id search
+blank pg not

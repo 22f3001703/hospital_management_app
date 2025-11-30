@@ -61,10 +61,12 @@ def adminSearch():
 
             doctors = User.query.filter_by(role="doctor", status=1).all()
             for doctor in doctors:
-                if (search_query in doctor.fullname.lower() or 
-                    search_query in doctor.username.lower()):
-                    doctor_details = Doctor.query.filter_by(username=doctor.username).first()
-                    if doctor_details:
+                doctor_details = Doctor.query.filter_by(username=doctor.username).first()
+                if doctor_details:
+                    if (search_query in doctor.fullname.lower() or 
+                        search_query in doctor.username.lower() or
+                        search_query in doctor_details.specialization.lower() or
+                        search_query in doctor_details.phone.lower()):
                         search_results.append({
                             'user': doctor,
                             'doctor_details': doctor_details
@@ -74,10 +76,14 @@ def adminSearch():
 
             patients = User.query.filter_by(role="patient", status=1).all()
             for patient in patients:
-                if (search_query in patient.fullname.lower() or 
-                    search_query in patient.username.lower()):
-                    patient_details = Patient.query.filter_by(userid=patient.id).first()
-                    if patient_details:
+                patient_details = Patient.query.filter_by(userid=patient.id).first()
+                if patient_details:
+                    phone_str = str(patient_details.phone)
+                    user_id_str = str(patient.id)
+                    if (search_query in patient.fullname.lower() or 
+                        search_query in patient.username.lower() or
+                        search_query in phone_str or
+                        search_query in user_id_str):
                         search_results.append({
                             'user': patient,
                             'patient_details': patient_details
